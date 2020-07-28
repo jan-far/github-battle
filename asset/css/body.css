@@ -5,6 +5,13 @@ body{
     align-items: center;
 }
 
+form{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    align-items: center;
+}
+
 input{
     padding: 5px;
     width: 80%;
