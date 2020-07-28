@@ -1,0 +1,84 @@
+body{
+    background: #333;
+}
+
+.logo{
+    /* padding: 15% 0 0 40%; */
+    /* color: white; */
+    font-size: xx-large;
+}
+
+.loader1, .loader2{
+    position: absolute;
+    border: 5px solid transparent;
+    border-radius: 50%;
+}
+
+.loader1 {
+    width: 40px;
+    height: 40px;
+    border-top: 5px solid blueviolet;
+    border-bottom: 5px solid blueviolet;
+    animation: clockwisespin 2s linear infinite;
+}
+
+.loader2 {
+    width: 30px;
+    height: 30px;
+    border-right: 5px solid darkturquoise;
+    border-left: 5px solid darkturquoise;
+    top: 5px; left: 5px;
+    animation: anticlockwisespin 2s linear infinite;
+}
+
+@keyframes clockwisespin {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+@keyframes anticlockwisespin {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(-360deg);}
+}
+
+@keyframes fadeout {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}
+
+@media screen and (max-width: 763px){
+    .preload{
+        height: 10%;
+        width: 50%;
+        position: absolute;
+        top: 40%;
+    }
+
+    .loader-frame{
+        position: relative;
+        /* left: 50%!important; */
+    }
+}
+
+@media screen and (max-width: 1440px){
+    .preload{
+        height: 10%;
+        width: 50%;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+    }
+
+    .loader-frame{
+        width: 20px;
+        height: 20px;
+        position: relative;
+        top: 50%;
+        left: -15px;
+    }
+    
+    .logo{
+        position: absolute;
+    }
+
+}
