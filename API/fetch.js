@@ -6,7 +6,6 @@ let following = document.getElementsByClassName("following");
 let repo = document.getElementsByClassName("repo");
 
 
-
 //To get specific github user
 const API = {
     async getUser(user) {
@@ -37,7 +36,11 @@ const API = {
             repo: data.public_repos
         }
         return formData;
-    }    
+    },
+
+    scores(info){
+        
+    }
 }
 
 
