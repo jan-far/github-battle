@@ -4,20 +4,30 @@ import calculate from "./scores.js"
 var body = document.querySelector("body");
 var view = document.querySelector(".view");
 var preload = document.querySelector(".preload");
-var loading = 0;
-var id = setInterval(frame, 70);
+let score = document.getElementsByClassName("score")
+let player = document.getElementsByClassName("players")
+let head = document.getElementsByClassName("header")
 var battle = document.querySelector(".battle");
+var battleBtn = document.querySelector(".battleBtn");
+let start = document.querySelector(".re-play")
 
 var input1 = localStorage.getItem("input1");
 var input2 = localStorage.getItem("input2");
 
 view.style.visibility = "hidden";
 
+var loading = 0;
+var id = setInterval(frame, 70);
 function frame() {
+    preload.style.visibility = "visible"
+    view.style.visibility = "hidden"
+    body.style.background = "#333"
 
     if (loading == 100) {
         clearInterval(id);
-        // window.open("../../UI/displayUsers.html", "_self");
+        body.style.background = "none"
+        preload.style.visibility = "hidden"
+        view.style.visibility = "visible"
     }
     else {
         loading = loading + 1;
@@ -34,41 +44,90 @@ function retrieve(user, num) {
             document.onreadystatechange = () => {
                 if (document.readyState !== "complete") {
                     view.style.visibility = "hidden"
-                    frame()
+                } else {
+                    window.addEventListener("load", () => {
+                        // frame()
+                        body.style.background = "none"
+                        preload.style.visibility = "hidden"
+                        view.style.visibility = "visible"
+                    })
                 }
             }
-            body.style.background = "none"
-            preload.style.visibility = "hidden"
-            view.style.visibility = "visible"
+            document.onreadystatechange()
         })
         .catch((e) => {
             return e
         })
 }
 
+usersInfo();
+
+
+
 function usersInfo() {
+    // start.style.visibility = "visible"
+    // head[0].innerHTML = "Confirm Players"
+    // battleBtn.textContent = "Reselect Players"
     retrieve(input1, 0)
     retrieve(input2, 1)
 }
 
-usersInfo();
+function result() {
+    // frame()
 
-var ply1 = document.querySelector(".ply1")
+    start.style.visibility = "hidden"
+    head[0].innerHTML = "WINNER"
+    battleBtn.textContent = "Start Over"
+    battleBtn.addEventListener("click", () => {
+        start.style.visibility = "visible"
+        head[0].innerHTML = "Confirm Players"
+        battleBtn.textContent = "Reselect Players"
+        sessionStorage.clear()
+        localStorage.clear()
+        window.open("../../UI/searchUser.html", "_self")
+    })
 
-battle.addEventListener("click", () => {
-    preload.style.visibility = "visible"
-    view.style.visibility = "hidden"
-    body.style.background = "#333"
+    let in1 = parseInt(sessionStorage.getItem("in1"))
+    let in2 = parseInt(sessionStorage.getItem("in2"))
 
-    let in1 = calculate.calculateScores(input1)
-    let in2 = calculate.calculateScores(input2)
-    let p = document.createElement("p")
+    // preload.style.visibility = "visible"
+    // view.style.visibility = "hidden"
+    // body.style.background = "#333"
+    // head[0].innerHTML = "WINNER"
 
-    if(in1 > in2){
-        document.onreadystatechange = () => {
-            if (document.readyState !== "complete") {
-                frame()
-            }
-        }
+    if (in1 > in2) {
+        // frame()
+        player[0].innerHTML = "Winner"
+        player[1].innerHTML = "Loser"
+        score[0].innerHTML = ` SCORE: ${in1}`
+        score[1].innerHTML = ` SCORE: ${in2} `
+
+    } else if (in2 > in1) {
+        player[0].innerHTML = "Loser"
+        player[1].innerHTML = "Winner"
+        score[0].innerHTML = ` SCORE: ${in1}`
+        score[1].innerHTML = ` SCORE: ${in2} `
+
+        // frame()
+    } else {
+        player.innerHTML = `
+        <h3>IT'S A TIE</h3>
+        `
+        console.log("A TIE")
     }
+}
+calculate()
+battle.addEventListener("click", () => {
+    // frame()
+    result()
+
+    // start.style.visibility = "hidden"
+    // head[0].innerHTML = "WINNER"
+    // battleBtn.textContent = "Start Over"
+    // battleBtn.addEventListener("click", () => {
+    //     window.open("../../UI/searchUser.html", "_self")
+    //     sessionStorage.clear()
+    //     localStorage.clear()
+    // })
+
 })
