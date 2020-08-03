@@ -17,8 +17,8 @@ body{
 .loader1 {
     width: 40px;
     height: 40px;
-    border-top: 5px solid blueviolet;
-    border-bottom: 5px solid blueviolet;
+    border-top: 5px solid azure;
+    border-bottom: 5px solid azure;
     animation: clockwisespin 2s linear infinite;
 }
 
