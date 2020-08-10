@@ -5,7 +5,7 @@ var body = document.querySelector("body");
 var view = document.querySelector(".view");
 var preload = document.querySelector(".preload");
 let score = document.getElementsByClassName("score")
-let player = document.querySelector(".players")
+let player = document.getElementsByClassName("players")
 let head = document.getElementsByClassName("header")
 var battle = document.querySelector(".battle");
 var battleBtn = document.querySelector(".battleBtn");
@@ -14,14 +14,10 @@ let start = document.querySelector(".re-play")
 var input1 = localStorage.getItem("input1");
 var input2 = localStorage.getItem("input2");
 
+view.style.visibility = "hidden";
+
 var loading = 0;
 var id = setInterval(frame, 70);
-
-(()=>{
-    usersInfo();
-    calculate();
-})
-
 function frame() {
     preload.style.visibility = "visible"
     view.style.visibility = "hidden"
@@ -49,9 +45,12 @@ function retrieve(user, num) {
                 if (document.readyState !== "complete") {
                     view.style.visibility = "hidden"
                 } else {
-                    body.style.background = "none"
-                    preload.style.visibility = "hidden"
-                    view.style.visibility = "visible"
+                    window.addEventListener("load", () => {
+                        // frame()
+                        body.style.background = "none"
+                        preload.style.visibility = "hidden"
+                        view.style.visibility = "visible"
+                    })
                 }
             }
             document.onreadystatechange()
@@ -61,12 +60,21 @@ function retrieve(user, num) {
         })
 }
 
+usersInfo();
+
+
+
 function usersInfo() {
+    // start.style.visibility = "visible"
+    // head[0].innerHTML = "Confirm Players"
+    // battleBtn.textContent = "Reselect Players"
     retrieve(input1, 0)
     retrieve(input2, 1)
 }
 
-function reload() {
+function result() {
+    // frame()
+
     start.style.visibility = "hidden"
     head[0].innerHTML = "WINNER"
     battleBtn.textContent = "Start Over"
@@ -79,33 +87,47 @@ function reload() {
         window.open("../../UI/searchUser.html", "_self")
     })
 
-    function result() {
-        let in1 = parseInt(sessionStorage.getItem("in1"))
-        let in2 = parseInt(sessionStorage.getItem("in2"))
+    let in1 = parseInt(sessionStorage.getItem("in1"))
+    let in2 = parseInt(sessionStorage.getItem("in2"))
 
-        if (in1 > in2) {
-            player[0].innerHTML = "Winner"
-            player[1].innerHTML = "Loser"
-            score[0].innerHTML = ` SCORE: ${in1}`
-            score[1].innerHTML = ` SCORE: ${in2} `
+    // preload.style.visibility = "visible"
+    // view.style.visibility = "hidden"
+    // body.style.background = "#333"
+    // head[0].innerHTML = "WINNER"
 
-        } else if (in2 > in1) {
-            player[0].innerHTML = "Loser"
-            player[1].innerHTML = "Winner"
-            score[0].innerHTML = ` SCORE: ${in1}`
-            score[1].innerHTML = ` SCORE: ${in2} `
+    if (in1 > in2) {
+        // frame()
+        player[0].innerHTML = "Winner"
+        player[1].innerHTML = "Loser"
+        score[0].innerHTML = ` SCORE: ${in1}`
+        score[1].innerHTML = ` SCORE: ${in2} `
 
-        } else {
-            player.innerHTML = `
+    } else if (in2 > in1) {
+        player[0].innerHTML = "Loser"
+        player[1].innerHTML = "Winner"
+        score[0].innerHTML = ` SCORE: ${in1}`
+        score[1].innerHTML = ` SCORE: ${in2} `
+
+        // frame()
+    } else {
+        player.innerHTML = `
         <h3>IT'S A TIE</h3>
         `
-            console.log("A TIE")
-        }
+        console.log("A TIE")
     }
-    frame()
-    result()
 }
-
+calculate()
 battle.addEventListener("click", () => {
-    reload()
+    // frame()
+    result()
+
+    // start.style.visibility = "hidden"
+    // head[0].innerHTML = "WINNER"
+    // battleBtn.textContent = "Start Over"
+    // battleBtn.addEventListener("click", () => {
+    //     window.open("../../UI/searchUser.html", "_self")
+    //     sessionStorage.clear()
+    //     localStorage.clear()
+    // })
+
 })

@@ -6,12 +6,12 @@ var input2 = localStorage.getItem("input2");
 const calculate = async () => {
     let in1 = User.getUser(input1)
         .then(data => {
-            sessionStorage.setItem("in1", data.followers + data.following + (data.public_repos/2))
+            sessionStorage.setItem("in1", data.followers + data.following + data.public_repos)
         })
 
     let in2 = User.getUser(input2)
         .then(data => {
-            sessionStorage.setItem("in2", data.followers + data.following + (data.public_repos/2)) 
+            sessionStorage.setItem("in2", data.followers + data.following + data.public_repos) 
         })
 }
 
