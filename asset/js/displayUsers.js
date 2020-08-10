@@ -70,7 +70,8 @@ function usersInfo() {
 function reload() {
     let in1 = parseInt(sessionStorage.getItem("in1"))
     let in2 = parseInt(sessionStorage.getItem("in2"))
-
+    // players.focus()
+    players.scrollIntoView()
     if (in1 > in2) {
         player[0].innerHTML = "Winner"
         player[1].innerHTML = "Loser"
