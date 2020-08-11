@@ -21,7 +21,7 @@ var id = setInterval(frame, 70);
 (() => {
     usersInfo();
     calculate();
-}) ();
+})();
 
 function frame() {
     preload.style.visibility = "visible"
@@ -68,31 +68,7 @@ function usersInfo() {
 }
 
 function reload() {
-    let in1 = parseInt(sessionStorage.getItem("in1"))
-    let in2 = parseInt(sessionStorage.getItem("in2"))
-    // players.focus()
     players.scrollIntoView()
-    if (in1 > in2) {
-        player[0].innerHTML = "Winner"
-        player[1].innerHTML = "Loser"
-        score[0].innerHTML = ` SCORE: ${in1}`
-        score[1].innerHTML = ` SCORE: ${in2} `
-
-    } else if (in2 > in1) {
-        player[0].innerHTML = "Loser"
-        player[1].innerHTML = "Winner"
-        score[0].innerHTML = ` SCORE: ${in1}`
-        score[1].innerHTML = ` SCORE: ${in2} `
-
-    } else {
-        players.innerHTML = `
-        <h3>IT'S A TIE</h3>
-        `
-        players.style.color = "green"
-        players.style.fontSize = "1.5em"
-        console.log("A TIE")
-    }
-
 
     start.style.visibility = "hidden"
     head[0].innerHTML = "WINNER"
@@ -105,6 +81,31 @@ function reload() {
         localStorage.clear()
         window.open("../../UI/searchUser.html", "_self")
     })
+
+    let in1 = parseInt(sessionStorage.getItem("in1"))
+    let in2 = parseInt(sessionStorage.getItem("in2"))
+
+    if (in1 && in2) {   
+        if (in1 > in2) {
+            player[0].innerHTML = "Winner"
+            player[1].innerHTML = "Loser"
+            score[0].innerHTML = ` SCORE: ${in1}`
+            score[1].innerHTML = ` SCORE: ${in2} `
+
+        } else if (in2 > in1) {
+            player[0].innerHTML = "Loser"
+            player[1].innerHTML = "Winner"
+            score[0].innerHTML = ` SCORE: ${in1}`
+            score[1].innerHTML = ` SCORE: ${in2} `
+
+        } else {
+            players.innerHTML = `
+        <h3>IT'S A TIE</h3>
+        `
+            players.style.color = "green"
+            players.style.fontSize = "1.5em"
+        }
+    }
 }
 
 battle.addEventListener("click", () => {
