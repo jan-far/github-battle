@@ -71,7 +71,7 @@ function reload() {
     players.scrollIntoView()
 
     start.style.visibility = "hidden"
-    head[0].innerHTML = "WINNER"
+    head[0].innerHTML = "RESULT"
     battleBtn.textContent = "Start Over"
     battleBtn.addEventListener("click", () => {
         start.style.visibility = "visible"
