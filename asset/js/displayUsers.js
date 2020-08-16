@@ -16,10 +16,11 @@ var input1 = localStorage.getItem("input1");
 var input2 = localStorage.getItem("input2");
 
 (() => {
-    frame()
     usersInfo();
     calculate();
+    frame()
 })();
+
 
 function frame() {
     view.style.visibility = "hidden"
@@ -27,12 +28,14 @@ function frame() {
     body.style.background = "#333"
 
     document.onreadystatechange = () => {
-        if (document.readyState == 'loading') {
+        if (document.readyState !== 'complete') {
             preload.style.visibility = "visible"
         } else {
-            body.style.background = "none"
-            preload.style.visibility = "hidden"
-            view.style.visibility = "visible"
+            document.addEventListener('DOMContentLoaded', () => {
+                body.style.background = "none"
+                preload.style.visibility = "hidden"
+                view.style.visibility = "visible"
+            })
         }
     }
     document.onreadystatechange()
