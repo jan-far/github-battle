@@ -23,15 +23,18 @@ const PlayerTwo = () => {
 const play = () => {
     PlayerOne().addEventListener("click", () => {
         var input1 = document.querySelector("#input1").value;
+        input1 = input1.replace(/^\s+/, '').replace(/\s+$/, '');
 
-        if (input1 == "") {
+        if (input1 == "" || input1.value < 0 || input1.value == 0) {
             alert("Please enter a github username!");
         }
         else {
             PlayerTwo().addEventListener("click", () => {
                 var input2 = document.querySelector("#input2").value;
+                input2 = input2.replace(/^\s+/, '').replace(/\s+$/, '');
 
-                if (input2 == "") {
+
+                if (input2 == "" || input1.value < 0 || input1.value == 0) {
                     alert("Please enter a github username!");
                 } else {
                     localStorage.setItem("input1", input1)

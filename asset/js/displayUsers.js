@@ -45,17 +45,22 @@ function frame() {
 function retrieve(user, num) {
     User.getUser(user)
         .then(data => {
-            User.datalist(User.info(data), num)
-            document.onreadystatechange = () => {
-                if (document.readyState !== "complete") {
-                    view.style.visibility = "hidden"
-                } else {
-                    body.style.background = "none"
-                    preload.style.visibility = "hidden"
-                    view.style.visibility = "visible"
+            if (data.message == "Not Found") {
+                alert(`Invalid Github username for User: ${user} or doesn't exist `)
+            } else {
+                User.datalist(User.info(data), num)
+                document.onreadystatechange = () => {
+                    if (document.readyState !== "complete") {
+                        view.style.visibility = "hidden"
+                    } else {
+                        body.style.background = "none"
+                        preload.style.visibility = "hidden"
+                        view.style.visibility = "visible"
+                    }
                 }
+                document.onreadystatechange()
             }
-            document.onreadystatechange()
+
         })
         .catch((e) => {
             return e
@@ -71,7 +76,7 @@ function reload() {
     players.scrollIntoView()
 
     start.style.visibility = "hidden"
-    head[0].innerHTML = "WINNER"
+    head[0].innerHTML = "RESULT"
     battleBtn.textContent = "Start Over"
     battleBtn.addEventListener("click", () => {
         start.style.visibility = "visible"
@@ -85,7 +90,7 @@ function reload() {
     let in1 = parseInt(sessionStorage.getItem("in1"))
     let in2 = parseInt(sessionStorage.getItem("in2"))
 
-    if (in1 && in2) {   
+    if (in1 && in2) {
         if (in1 > in2) {
             player[0].innerHTML = "Winner"
             player[1].innerHTML = "Loser"

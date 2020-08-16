@@ -11,7 +11,7 @@ const API = {
     async getUser(user) {
         var url = `https://api.github.com/users/${user}`;
         const response = await fetch(url);
-        const data = await response.json();
+        const data = await response.json()
         return data;
     },
 
