@@ -15,29 +15,24 @@ let start = document.querySelector(".re-play")
 var input1 = localStorage.getItem("input1");
 var input2 = localStorage.getItem("input2");
 
-var loading = 0;
-var id = setInterval(frame, 70);
-
 (() => {
     usersInfo();
     calculate();
+    frame()
 })();
 
 function frame() {
-    preload.style.visibility = "visible"
     view.style.visibility = "hidden"
+    preload.style.visibility = "visible"
     body.style.background = "#333"
 
-    if (loading == 100) {
-        clearInterval(id);
-        body.style.background = "none"
-        preload.style.visibility = "hidden"
-        view.style.visibility = "visible"
-    }
-    else {
-        loading = loading + 1;
-        if (loading == 90) {
-            preload.style.animation = "fadeout 5s ease"
+    document.onreadystatechange = () => {
+        if (document.readyState == 'loading') {
+            preload.style.visibility = "visible"
+        } else {
+            body.style.background = "none"
+            preload.style.visibility = "hidden"
+            view.style.visibility = "visible"
         }
     }
 }
@@ -47,6 +42,7 @@ function retrieve(user, num) {
         .then(data => {
             if (data.message == "Not Found") {
                 alert(`Invalid Github username for User: ${user} or doesn't exist `)
+                return window.open("../../UI/searchUser.html", "_self", '', true)
             } else {
                 User.datalist(User.info(data), num)
                 document.onreadystatechange = () => {
