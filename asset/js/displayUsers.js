@@ -16,9 +16,9 @@ var input1 = localStorage.getItem("input1");
 var input2 = localStorage.getItem("input2");
 
 (() => {
+    frame()
     usersInfo();
     calculate();
-    frame()
 })();
 
 function frame() {
@@ -35,6 +35,7 @@ function frame() {
             view.style.visibility = "visible"
         }
     }
+    document.onreadystatechange()
 }
 
 function retrieve(user, num) {
